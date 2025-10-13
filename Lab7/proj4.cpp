@@ -10,22 +10,26 @@
 *Description: Computes the shortest number of knight moves between two squares on a chessboard using BFS.
 */
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <queue>
+#include <vector>
 using namespace std;
 
-// structure for storing a cell's data
+// structure for storing knight's current position and number of moves
 struct cell {
     int x, y, dis;
     cell() : x(0), y(0), dis(0) {}
     cell(int x, int y, int dis) : x(x), y(y), dis(dis) {}
 };
 
-// Utility method to check if (x, y) is inside the board
+// method to check if (x, y) is inside the board
 bool isInside(int x, int y, int n) {
     return x >= 0 && x < n && y >= 0 && y < n;
 }
 
-// Convert chess notation (e.g., "a1") to board coordinates
+// Convert chess notation to board coordinates
 pair<int, int> toCoord(const string& pos) {
     return {pos[0] - 'a', pos[1] - '1'};
 }
@@ -43,7 +47,9 @@ int minSteps(pair<int, int> knightPos, pair<int, int> targetPos, int n) {
     // push starting position of knight with 0 distance
     q.push(cell(knightPos.first, knightPos.second, 0));
 
+    // current position
     cell t;
+    // next position
     int x, y;
 
     // Visit array initialized to false
@@ -54,6 +60,7 @@ int minSteps(pair<int, int> knightPos, pair<int, int> targetPos, int n) {
 
     // loop until queue is empty
     while (!q.empty()) {
+        // take next knight position and explore possible positions
         t = q.front();
         q.pop();
 
